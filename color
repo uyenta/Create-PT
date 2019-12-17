@@ -1,0 +1,183 @@
+var randButtonId;
+var diff=30;
+var score2=0;
+var score3=0;
+var lives2=3;
+var lives3=3;
+var hscore2=[];
+var highestscore2;
+var hscore3=[];
+var highestscore3;
+
+// Common functions 
+
+onEvent("restart","click", function(){
+  setScreen("start");
+  score2=0;
+  lives2=3;
+  score3=0;
+  lives3=3;
+  diff=30;
+});
+
+// 2x2 mode
+
+onEvent("two","click",function(){
+  setScreen("gamePlay_two");
+  setBoard2(diff);
+  setText("score",score2);
+  setText("lives",lives2);
+});
+
+function setBoard2(diff){
+var R = randomNumber(0,225);
+var G = randomNumber(0,225);
+var B = randomNumber(0,225);
+var color = rgb(R,G,B);
+setProperty("button1", "background-color", color);
+setProperty("button2", "background-color", color);
+setProperty("button3", "background-color", color);
+setProperty("button4", "background-color", color);
+R = R + diff;
+G = G + diff;
+B = B + diff;
+var diffColor = rgb(R,G,B);
+randButtonId = "button" + randomNumber(1,4);
+setProperty(randButtonId, "background-color", diffColor);
+}
+
+onEvent("button1","click", function(){
+  checkCorrect2("button1");
+});
+onEvent("button2","click", function(){
+  checkCorrect2("button2");
+});
+onEvent("button3","click", function(){
+  checkCorrect2("button3");
+});
+onEvent("button4","click", function(){
+  checkCorrect2("button4");
+});
+function checkCorrect2(buttonId){
+   if (buttonId == randButtonId){
+    updateBy2(1,0);
+    if (diff>=12){
+      diff--;
+    }
+  } else {
+    updateBy2(0,-1);
+  }
+  checkGameOver2();
+  setBoard2(diff);
+}
+
+function checkGameOver2(){
+  if (lives2==0){
+    setScreen("gameOver_Single");
+    setText("score1",score2);
+    appendItem(hscore2,score2);
+    highestscore2();
+  }
+}
+
+function updateBy2(amt,amtL){
+  score2 += amt;
+  lives2 += amtL;
+  setText("score",score2);
+  setText("lives",lives2);
+}
+
+function highestscore2(){
+  var highestscore2=hscore2[0];
+  for (var i=1; i<hscore2.length;i++){
+    if (hscore2[0]<hscore2[i]){
+      highestscore2=hscore2[i];
+    }
+  }
+  setText("hscoretwo",highestscore2);
+}
+// 3x3 mode
+
+onEvent("three","click",function(){
+  setScreen("gamePlay_three");
+  setBoard3(diff);
+  setText("score",score3);
+  setText("lives",lives3);
+});
+
+function setBoard3(diff){
+var R = randomNumber(0,225);
+var G = randomNumber(0,225);
+var B = randomNumber(0,225);
+var color = rgb(R,G,B);
+setProperty("button5", "background-color", color);
+setProperty("button6", "background-color", color);
+setProperty("button7", "background-color", color);
+setProperty("button8", "background-color", color);
+setProperty("button9", "background-color", color);
+setProperty("button10", "background-color", color);
+setProperty("button11", "background-color", color);
+setProperty("button12", "background-color", color);
+setProperty("button13", "background-color", color);
+R = R + diff;
+G = G + diff;
+B = B + diff;
+var diffColor = rgb(R,G,B);
+randButtonId = "button" + randomNumber(5,13);
+setProperty(randButtonId, "background-color", diffColor);
+}
+
+onEvent("button5","click", function(){
+  checkCorrect3("button5");
+});
+onEvent("button6","click", function(){
+  checkCorrect3("button6");
+});
+onEvent("button7","click", function(){
+  checkCorrect3("button7");
+});
+onEvent("button8","click", function(){
+  checkCorrect3("button8");
+});
+onEvent("button9","click", function(){
+  checkCorrect3("button9");
+});
+onEvent("button10","click", function(){
+  checkCorrect3("button10");
+});
+onEvent("button11","click", function(){
+  checkCorrect3("button11");
+});
+onEvent("button12","click", function(){
+  checkCorrect3("button12");
+});
+onEvent("button13","click", function(){
+  checkCorrect3("button13");
+});
+
+function checkCorrect3(buttonId){
+   if (buttonId == randButtonId){
+    updateBy3(1,0);
+    if (diff>=12){
+      diff--;
+    }
+  } else {
+    updateBy3(0,-1);
+  }
+  checkGameOver3();
+  setBoard3(diff);
+}
+function checkGameOver3(){
+  if (lives3==0){
+    setScreen("gameOver_Single");
+    setText("score1",score3);
+    appendItem(hscore3,score3);
+    highestscore3();
+  }
+}
+function updateBy3(amt,amtL){
+  score3 += amt;
+  lives3 += amtL;
+  setText("label1",score3);
+  setText("label5",lives3);
+}
